@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Global from '../../../Global';
 
@@ -28,19 +29,38 @@ class EditCategory extends Component {
     changeState = () =>{
         this.setState({
             category :{
+				_id : this.state.category._id,
                 code: this.codeRef.current.value,
                 name : this.nameRef.current.value
             }
-        })
-    }
+		})
+	}
+	//POST edit category
+	edit = (e) =>{
+		e.preventDefault();
+		let category = {
+			id: this.state.category._id,
+			name : this.state.category.name
+		}
+		axios.post(`${this.url}/category/edit`, category)
+			 .then(resp =>{
+				 this.setState({
+					 ...this.state,
+					 status:resp.status
+				 })
+			 }).catch(err =>{console.log(err)})
+	}
     render() {
+		if(this.state.status === 200){
+			return <Redirect to={'/categories'}/>;
+		}
 		return (
 			<div className="container-fluid text-center backcat">
 				<div className="row">
 					<div className="col-md-12 pt-5">
 						<h2>Category Edition</h2>
 					</div>
-					<form className="col-md-4 offset-md-4 py-4" onSubmit={this.editCategory}>
+					<form className="col-md-4 offset-md-4 py-4" onSubmit={this.edit}>
 						<div className="form-row">
 							<div className="form-group col-md-6">
 								<label htmlFor="code">Code</label>

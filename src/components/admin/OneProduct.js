@@ -10,7 +10,7 @@ const OneProduct = ({product}) => {
             </div>
             <div className="col-2 d-flex justify-content-end">
                 <Link
-                    to={`/product/editar/${product._id}`}
+                    to={`/product/edit/${product._id}`}
                     className="btn btn-warning d-block d-md-inline-block"
                 >
                     Edit

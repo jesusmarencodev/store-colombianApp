@@ -54,3 +54,26 @@
   background: linear-gradient(to right, rgba(241,111,92,1) 0%, rgba(245,55,28,1) 41%, rgba(246,41,12,1) 51%, rgba(240,47,23,1) 66%, rgba(231,56,39,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f16f5c', endColorstr='#e73827', GradientType=1 );
 }
+
+/*User -> Store*/
+.name{
+  font-weight: 600;
+  color: #585050;
+}
+.storeInput{
+  
+}
+.about{
+  overflow-wrap: break-word;
+}
+.imgStore{
+  height: 150px;
+}
+
+
+/*Media Querys*/
+@media(max-width:664px){
+  .imgStore{
+    height: 300px;
+  }
+}

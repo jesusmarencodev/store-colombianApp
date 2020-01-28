@@ -10,7 +10,7 @@ export default class Home extends Component {
                     <div className="col-md-6">
                         <h1 className="mt-5 text-white font-weight-light">You are User</h1>
                         <div>
-                            <Link to={"/user"} className="btn btn-warning">Click here!!</Link>
+                            <Link to={"/store"} className="btn btn-warning">Click here!!</Link>
                         </div>
                     </div>
                     <div className="col-md-6">

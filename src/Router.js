@@ -4,11 +4,12 @@ import About from './components/About';
 import Header from './components/Header';
 import Error from './components/Error';
 import Home from './components/Home';
-import Store from './components/store/Store';
+import Store from './components/user/Store';
 import Admin from './components/admin/Admin';
 import Category from './components/admin/Category';
 import Products from './components/admin/Products';
 import EditCategory from './components/admin/Edit/EditCategory';
+import EditProduct from './components/admin/Edit/EditProduct';
 
 class Router extends Component {
     render() {
@@ -23,6 +24,7 @@ class Router extends Component {
                     <Route  exact path="/categories" component={Category}/>
                     <Route  exact path="/category/:id" component={EditCategory}/>
                     <Route  exact path="/products" component={Products}/>
+                    <Route  exact path="/product/edit/:id" component={EditProduct}/>
                     <Route  component={Error}/>
                 </Switch>
             </BrowserRouter>

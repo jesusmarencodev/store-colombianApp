@@ -16,7 +16,6 @@ class Category extends Component {
 
 	componentDidMount() {
 		axios.get(`${this.url}/category/get`).then((resp) => {
-			console.log(resp.data.categories);
 			this.setState({
 				categories: resp.data.categories
 			});
