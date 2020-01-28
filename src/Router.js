@@ -8,6 +8,7 @@ import Store from './components/store/Store';
 import Admin from './components/admin/Admin';
 import Category from './components/admin/Category';
 import Products from './components/admin/Products';
+import EditCategory from './components/admin/Edit/EditCategory';
 
 class Router extends Component {
     render() {
@@ -20,6 +21,7 @@ class Router extends Component {
                     <Route  exact path="/store" component={Store}/>
                     <Route  exact path="/admin" component={Admin}/>
                     <Route  exact path="/categories" component={Category}/>
+                    <Route  exact path="/category/:id" component={EditCategory}/>
                     <Route  exact path="/products" component={Products}/>
                     <Route  component={Error}/>
                 </Switch>

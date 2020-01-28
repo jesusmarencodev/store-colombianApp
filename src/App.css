@@ -3,6 +3,7 @@
 .home{
   background: #007bff;
   background: linear-gradient(to right, #0062E6, #33AEFF);
+  height: 100vh;
 }
 
 .face{
@@ -30,7 +31,7 @@
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-/******Categorogy******/
+/******Categorogy and Products******/
 .backcat{
   min-height: 90vh;
   background: rgba(179,220,237,1);
@@ -41,4 +42,15 @@
   background: -ms-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 0%, rgba(188,224,238,1) 100%);
   background: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 0%, rgba(188,224,238,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee', GradientType=1 );
+}
+/*Edict Category*/
+.backEdict{
+  background: rgba(241,111,92,1);
+  background: -moz-linear-gradient(left, rgba(241,111,92,1) 0%, rgba(245,55,28,1) 41%, rgba(246,41,12,1) 51%, rgba(240,47,23,1) 66%, rgba(231,56,39,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(241,111,92,1)), color-stop(41%, rgba(245,55,28,1)), color-stop(51%, rgba(246,41,12,1)), color-stop(66%, rgba(240,47,23,1)), color-stop(100%, rgba(231,56,39,1)));
+  background: -webkit-linear-gradient(left, rgba(241,111,92,1) 0%, rgba(245,55,28,1) 41%, rgba(246,41,12,1) 51%, rgba(240,47,23,1) 66%, rgba(231,56,39,1) 100%);
+  background: -o-linear-gradient(left, rgba(241,111,92,1) 0%, rgba(245,55,28,1) 41%, rgba(246,41,12,1) 51%, rgba(240,47,23,1) 66%, rgba(231,56,39,1) 100%);
+  background: -ms-linear-gradient(left, rgba(241,111,92,1) 0%, rgba(245,55,28,1) 41%, rgba(246,41,12,1) 51%, rgba(240,47,23,1) 66%, rgba(231,56,39,1) 100%);
+  background: linear-gradient(to right, rgba(241,111,92,1) 0%, rgba(245,55,28,1) 41%, rgba(246,41,12,1) 51%, rgba(240,47,23,1) 66%, rgba(231,56,39,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f16f5c', endColorstr='#e73827', GradientType=1 );
 }

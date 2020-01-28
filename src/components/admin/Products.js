@@ -28,7 +28,8 @@ class Products extends Component {
 			this.setState({
 				categories: resp.data.categories
 			});
-		}).catch(err=>{console.log(err)})
+		}).catch(err=>{console.log(err)});
+		this.listProducts();
     }
     changeState = () => {
         this.setState({
@@ -43,44 +44,71 @@ class Products extends Component {
         }) 
 	}
 	selectCategory = (category) =>{
-		console.log(category[0]._id)
+
 		this.setState({
-			product :{
-				category : category[0]._id
-			}
+			...this.state,
+			category : category._id
 		})
     }
-
-
+	//save product
     saveProduct = (e) => {
         e.preventDefault();
-        this.changeState()
-        console.log(this.state)
-	}
-	
+		this.changeState();
 
+ 		let productSave = {
+			code:this.state.product.code,
+			name:this.state.product.name,
+			price:this.state.product.price,
+			units:this.state.product.units,
+			about:this.state.product.about,
+			category:this.state.category
+		} 
+		axios.post(`${this.url}/product/save`, productSave)
+			 .then(resp => {
+				 if(resp.data.productCreated){
+					this.codeRef.current.value = "";
+					this.nameRef.current.value = "";
+					this.priceRef.current.value = "";
+					this.unitsRef.current.value = "";
+					this.aboutRef.current.value = "";
+					this.setState({
+						product: {}
+					})
+					this.listProducts();
+				 }
+			 })
+	}
+	//list products
+	listProducts = () => {
+		axios.get(`${this.url}/product/get`)
+			 .then(resp => {
+				this.setState({
+					...this.state,
+					products: resp.data.products
+				})
+
+			 });
+	}
 	render() {
 		let { products } = this.state;
 		return (
 			<div className="container-fluid text-center backcat">
 				<div className="row">
 					<div className="col-md-12 pt-5">
-						<h2>Category Creation</h2>
+						<h2>Product Creation</h2>
 					</div>
 					<form className="col-md-4 offset-md-4 py-4" onSubmit={this.saveProduct}>
 						<div className="form-row">
-							<div className="form-group col-md-6">
-								
-							<Select 
-								onChange={this.selectCategory}
-								options={this.state.categories}
-								isMulti
-								components={animatedComponents}
-								placeholder={'Select Category'}
-								getOptionValue={(options)=> options._id}
-								getOptionLabel={(options)=> options.name}
-								
-							/>
+							<div className="form-group col-md-12">
+								<Select 
+									onChange={this.selectCategory}
+									options={this.state.categories}
+									components={animatedComponents}
+									placeholder={'Select Category'}
+									getOptionValue={(options)=> options._id}
+									getOptionLabel={(options)=> options.name}
+									
+								/>
 							</div>
 							<div className="form-group col-md-6">
 								<label htmlFor="code">Code</label>
@@ -104,7 +132,7 @@ class Products extends Component {
 							</div>
 						</div>
 						<div className="text-center">
-							<input type="submit" className="btn btn-success" value="Save Category"/>
+							<input type="submit" className="btn btn-success" value="Save Product"/>
 						</div>
 					</form>
 				</div>
@@ -112,7 +140,7 @@ class Products extends Component {
 				<div className="container">
 					<div className="text-center row pt-3">
 						<div className="col-md-12 pb-3 ">
-							<h4 className="text-center">Category List</h4>
+							<h4 className="text-center">List Products</h4>
 						</div>
 						<div className="col-md-12 ">
 							<ul className="listGroup p-0">

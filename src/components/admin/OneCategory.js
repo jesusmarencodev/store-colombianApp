@@ -10,7 +10,7 @@ const OneCategory = ({category}) => {
             </div>
             <div className="col-4 d-flex justify-content-end">
                 <Link
-                    to={`/cliente/editar/`}
+                    to={`/category/${category._id}`}
                     className="btn btn-warning d-block d-md-inline-block"
                 >
                     Edit

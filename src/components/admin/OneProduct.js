@@ -1,10 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const OneProduct = () => {
+const OneProduct = ({product}) => {
     return (
-        <div>
-            hello
+        <li  className="list-group-item">
+        <div className="row justify-content-between align-item-center">
+            <div className="col-10 d-flex justify-content-between align-item-center">
+                <span className="text-left"><strong>{product.name}</strong></span>  <span className="text-right">Units: {product.units}</span>
+            </div>
+            <div className="col-2 d-flex justify-content-end">
+                <Link
+                    to={`/product/editar/${product._id}`}
+                    className="btn btn-warning d-block d-md-inline-block"
+                >
+                    Edit
+                </Link>
+            </div>
         </div>
+    </li>
     );
 };
 
