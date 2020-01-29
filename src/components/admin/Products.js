@@ -116,7 +116,7 @@ class Products extends Component {
 							</div>
 							<div className="form-group col-md-6">
 								<label htmlFor="name">Name</label>
-								<input type="text" className="form-control" onChange={this.changeState} name="name" ref={this.nameRef} placeholder="Name" />
+								<input type="text" className="form-control" onChange={this.changeState} name="name" maxLength="55" ref={this.nameRef} placeholder="Name" />
 							</div>
                             <div className="form-group col-md-6">
 								<label htmlFor="price">Price</label>
