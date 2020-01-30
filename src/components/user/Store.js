@@ -1,13 +1,22 @@
 import React, { Component, Fragment } from 'react';
-
+import '../../App';
 import axios from 'axios';
 import Global from '../../Global';
 import Product from './Product';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+const animatedComponents = makeAnimated();
 
-import '../../App';
+
+
 
 export default class Store extends Component {
+
+	searchProduct = React.createRef();
+	searchCategory = React.createRef();
+
 	url = Global.url;
+
 	state = {
 		products: [],
 		item:{},
@@ -20,8 +29,13 @@ export default class Store extends Component {
 				products: resp.data.products,
 				sale:[]
 			});
-			
 		});
+		axios.get(`${this.url}/category/get`).then((resp) => {
+			console.log(resp)
+			this.setState({
+				categories: resp.data.categories
+			});
+		}).catch(err=>{console.log(err)})
 	}
 	//Receiving from the son
 	receiveSon = (data) =>{
@@ -64,7 +78,6 @@ export default class Store extends Component {
 	//save sale
 	save = () => {
 		let arrayItems = this.state.items;
-		let items  = [];
 		let product = {
 			items : []
 		}
@@ -83,14 +96,55 @@ export default class Store extends Component {
 		} 
 		
 	}
+	//Search listener
+	searchListener = () => {
+		axios.get(`${this.url}/product/search/products/${this.searchProduct.current.value}`)
+			 .then(resp => {
+				 this.setState({
+					 ...this.state,
+					 products: resp.data.products
+				 })
+			 })
+			 .catch(err => console.log(err))
+	}
+	//Search selectCategory
+	searchSelectCategory = (category) =>{
+		axios.get(`${this.url}/product/category/${category._id}`)
+			 .then(resp => {
+				this.setState({
+					...this.state,
+					products: resp.data.products
+				})
+			 })
+    }
 
 
+	
 	render() {
 		let products = this.state.products;
 		let total = this.total(this.state.items);
 
 		return (	
 			<div className="container-fluid text-justify">
+				<div className="mx-4 py-2 row col-12 col-md-8 text-center justify-content-between">
+					<div className="col-5">
+						<label>Serch Product</label>
+						<input className=" mr-2 form-control" type="text" onChange={this.searchListener} ref={this.searchProduct}/>		
+					</div>
+					<div className="col-5">
+						<label>By Category</label>	
+						<Select 
+							onChange={this.searchSelectCategory}
+							options={this.state.categories}
+							components={animatedComponents}
+							placeholder={'Select Category'}
+							getOptionValue={(options)=> options._id}
+							getOptionLabel={(options)=> options.name}
+									
+						/>
+						{/* <input className="form-control" type="text" onChange={this.searchListenerCategory} ref={this.searchCategory}/> */}
+					</div>
+				</div>
 				{products &&
 					<div className="row mx-2 ">
 						<div className="col-12 col-md-8 pt-3 ">

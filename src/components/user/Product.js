@@ -32,24 +32,26 @@ export default class Product extends Component {
 
     url = Global.url;
 	render() {
-        const {product, index} = this.props;
+		const {product} = this.props;
+		//console.log(product)
 		return (
 			<div key={product._id} className="row py-3 border-bottom d-md-flex">
 				<div className="col-12 col-md-3 text-center">
 					{product.img && (
-						<img className="imgStore" src={this.url + '/product/getimage/' + product.img} aly="er" />
+						<img  className="imgStore"  alt="imageSi" src={this.url + '/product/getimage/' + product.img} aly="er" />
 					)}
-					{!product.img && <img className="imgStore" src={prueba} aly="er" />}
+					{!product.img && <img className="imgStore" alt="imageNo" src={prueba} aly="er" />}
 				</div>
 				<div className="col-12 col-md-9 about text-center">
 					<div className="d-md-flex justify-content-between about">
-						<strong className="name">{product.name}</strong>
+						<strong className="name ">{product.name}</strong>
 						<strong className="d-none d-md-block">${product.price}</strong>
 					</div>
 					<p className="pt-3 text-info text-md-left about">
-						Categoy:<span className="text-dark">{product.category.name}</span>
+						{console.log(product.category.name)}
+						Categoy: <span className="text-dark">{product.category.name}</span>
 					</p>
-					<p className="text-md-left">{product.about}</p>
+					<p className="text-md-left">About: {product.about}</p>
 					<p className="d-block  d-md-none">${product.price}</p>
 
 					<div className="input-group mb-3">
