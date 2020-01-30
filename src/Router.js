@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import About from './components/About';
 import Header from './components/Header';
 import Error from './components/Error';
 import Home from './components/Home';
@@ -18,7 +17,6 @@ class Router extends Component {
                 <Header/>
                 <Switch>
                     <Route  exact path="/" component={Home}/>
-                    <Route  exact path="/about" component={About}/>
                     <Route  exact path="/store" component={Store}/>
                     <Route  exact path="/admin" component={Admin}/>
                     <Route  exact path="/categories" component={Category}/>

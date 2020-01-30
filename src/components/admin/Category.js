@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import OneCategory from './OneCategory';
 import Global from '../../Global';
+import swal from 'sweetalert';
 
 class Category extends Component {
     //Refs creation
@@ -13,7 +14,7 @@ class Category extends Component {
         categories: [],
         category : {}
 	};
-
+	//loading categories	
 	componentDidMount() {
 		axios.get(`${this.url}/category/get`).then((resp) => {
 			this.setState({
@@ -30,7 +31,6 @@ class Category extends Component {
                 name : this.nameRef.current.value
             }
         })
-        console.log(this.state)
     }
     //Save Category
     saveCategory = (e) =>{
@@ -44,12 +44,22 @@ class Category extends Component {
              .then(resp =>{
                  if(resp.data.categoryCreated){
                      this.codeRef.current.value = '';
-                     this.nameRef.current.value = '';
-                 }
-                 console.log(this.codeRef.value)
-             }).catch(err=> console.log(err));
+					 this.nameRef.current.value = '';
+					 swal(
+						'Category created',
+						'The category was created correctly',
+						'success'
+					)
+				 }	 
+             }).catch(err=> {
+				 console.log(err)
+				swal(
+					'Error',
+					'Code already exists',
+					'error'
+				)
+			 });
     }
-
 
 	render() {
 		let { categories } = this.state;

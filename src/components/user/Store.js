@@ -4,6 +4,7 @@ import axios from 'axios';
 import Global from '../../Global';
 import Product from './Product';
 import Select from 'react-select';
+import swal from 'sweetalert';
 import makeAnimated from 'react-select/animated';
 const animatedComponents = makeAnimated();
 
@@ -12,26 +13,35 @@ const animatedComponents = makeAnimated();
 
 export default class Store extends Component {
 
-	searchProduct = React.createRef();
-	searchCategory = React.createRef();
-
 	url = Global.url;
 
+	//Refs creation
+	searchProduct = React.createRef();
+	searchCategory = React.createRef();
+	
+	//initial state
 	state = {
 		products: [],
 		item:{},
 		items:[],
 		total:0
 	};
+	//loading product list
 	componentDidMount() {
+		this.getProducts();
+		this.getCategories();
+
+	}
+	getProducts = () => {
 		axios.get(`${this.url}/product/get`).then((resp) => {
 			this.setState({
 				products: resp.data.products,
 				sale:[]
 			});
 		});
+	}
+	getCategories = () => {
 		axios.get(`${this.url}/category/get`).then((resp) => {
-			console.log(resp)
 			this.setState({
 				categories: resp.data.categories
 			});
@@ -86,12 +96,23 @@ export default class Store extends Component {
 			product.items[index].product = arrayItems[index].product._id
 
 			if(index === arrayItems.length -1){
-				console.log(product)
+
 				axios.post(`${this.url}/sale/save`, product)
 					 .then(resp => {
-						 console.log(resp)
+						this.getProducts();
+						swal(
+							'Product updated',
+							'The product was update correctly',
+							'success'
+						)
 					 })
-					 .catch(err => console.log(err))
+					 .catch(err => {
+						swal(
+							'Error',
+							'Could not update',
+							'error'
+						)
+					 })
 			}
 		} 
 		
@@ -118,8 +139,6 @@ export default class Store extends Component {
 			 })
     }
 
-
-	
 	render() {
 		let products = this.state.products;
 		let total = this.total(this.state.items);
@@ -137,12 +156,10 @@ export default class Store extends Component {
 							onChange={this.searchSelectCategory}
 							options={this.state.categories}
 							components={animatedComponents}
-							placeholder={'Select Category'}
 							getOptionValue={(options)=> options._id}
 							getOptionLabel={(options)=> options.name}
 									
 						/>
-						{/* <input className="form-control" type="text" onChange={this.searchListenerCategory} ref={this.searchCategory}/> */}
 					</div>
 				</div>
 				{products &&

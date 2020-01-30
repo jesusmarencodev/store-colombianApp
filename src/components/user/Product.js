@@ -4,12 +4,17 @@ import Global from '../../Global';
 import '../../App';
 
 export default class Product extends Component {
+	url = Global.url;
 
-    unitRef = React.createRef();
-
+	//Refs creation
+	unitRef = React.createRef();
+	
+	//Initial State
     state ={
         product:this.props.product
-    }
+	}
+
+	//capturing  values
     changeState = () =>{
         let product = this.state.product;
 
@@ -20,8 +25,9 @@ export default class Product extends Component {
         this.setState({
             product
         })
-    }
-
+	}
+	
+	//function that receives data from the child
     comunicationFather = () =>{
         if(this.unitRef.current.value > 0){
             this.props.levelUp(this.state)
@@ -29,8 +35,6 @@ export default class Product extends Component {
             this.props.levelUp('Not Found')
         }
     }
-
-    url = Global.url;
 	render() {
 		const {product} = this.props;
 		//console.log(product)
@@ -48,10 +52,12 @@ export default class Product extends Component {
 						<strong className="d-none d-md-block">${product.price}</strong>
 					</div>
 					<p className="pt-3 text-info text-md-left about">
-						{console.log(product.category.name)}
 						Categoy: <span className="text-dark">{product.category.name}</span>
 					</p>
-					<p className="text-md-left">About: {product.about}</p>
+					<p className="text-info text-md-left about">
+						Units: <span className="text-dark">{product.units}</span>
+					</p>
+					<p className="text-md-left name">About: {product.about}</p>
 					<p className="d-block  d-md-none">${product.price}</p>
 
 					<div className="input-group mb-3">

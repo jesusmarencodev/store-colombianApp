@@ -4,6 +4,7 @@ import axios from 'axios';
 import Global from '../../Global';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import swal from 'sweetalert';
 const animatedComponents = makeAnimated();
 
 
@@ -15,22 +16,24 @@ class Products extends Component {
     nameRef = React.createRef();
     priceRef = React.createRef();
     unitsRef = React.createRef();
-    aboutRef = React.createRef();
-
+	aboutRef = React.createRef();
+	
+	//initial state
     state = {
         products : [],
         product : {},
         categories : []
-    }
+	}
+	//loading product list
     componentDidMount() {
 		axios.get(`${this.url}/category/get`).then((resp) => {
-			console.log(resp.data.categories);
 			this.setState({
 				categories: resp.data.categories
 			});
 		}).catch(err=>{console.log(err)});
 		this.listProducts();
-    }
+	}
+	//capturing  values
     changeState = () => {
         this.setState({
             ...this.state,
@@ -43,6 +46,7 @@ class Products extends Component {
             }
         }) 
 	}
+	//category selection
 	selectCategory = (category) =>{
 
 		this.setState({
@@ -74,8 +78,20 @@ class Products extends Component {
 					this.setState({
 						product: {}
 					})
+					swal(
+						'Product created',
+						'The product was created correctly',
+						'success'
+					)
 					this.listProducts();
 				 }
+			 })
+			 .catch(err => {
+				swal(
+					'Error',
+					'Code already exists',
+					'error'
+				)
 			 })
 	}
 	//list products
@@ -107,28 +123,28 @@ class Products extends Component {
 									placeholder={'Select Category'}
 									getOptionValue={(options)=> options._id}
 									getOptionLabel={(options)=> options.name}
-									
+									required
 								/>
 							</div>
 							<div className="form-group col-md-6">
 								<label htmlFor="code">Code</label>
-								<input type="text" className="form-control" onChange={this.changeState} name="code" ref={this.codeRef} placeholder="Code" />
+								<input type="text" className="form-control" onChange={this.changeState} name="code" ref={this.codeRef} placeholder="Code" required />
 							</div>
 							<div className="form-group col-md-6">
 								<label htmlFor="name">Name</label>
-								<input type="text" className="form-control" onChange={this.changeState} name="name" maxLength="55" ref={this.nameRef} placeholder="Name" />
+								<input type="text" className="form-control" onChange={this.changeState} name="name" maxLength="55" ref={this.nameRef} placeholder="Name" required />
 							</div>
                             <div className="form-group col-md-6">
 								<label htmlFor="price">Price</label>
-								<input type="number" min="0" className="form-control" onChange={this.changeState} name="name" ref={this.priceRef} placeholder="Price" />
+								<input type="number" min="0" className="form-control" onChange={this.changeState} name="name" ref={this.priceRef} placeholder="Price" required />
 							</div>
                             <div className="form-group col-md-6">
 								<label htmlFor="units">Units</label>
-								<input type="number" min="0" className="form-control" onChange={this.changeState} name="units" ref={this.unitsRef} placeholder="Units" />
+								<input type="number" min="0" className="form-control" onChange={this.changeState} name="units" ref={this.unitsRef} placeholder="Units" required />
 							</div>
                             <div className="form-group col-md-12">
 								<label htmlFor="about">About</label>
-								<textarea type="text" className="form-control" onChange={this.changeState} name="about" ref={this.aboutRef} placeholder="About" />
+								<textarea type="text" className="form-control" onChange={this.changeState} name="about" ref={this.aboutRef} placeholder="About" required />
 							</div>
 						</div>
 						<div className="text-center">

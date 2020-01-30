@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Global from '../../../Global';
+import swal from 'sweetalert';
 
 class EditCategory extends Component {
 
@@ -13,7 +14,7 @@ class EditCategory extends Component {
 	state = {
 		category:{}
 	}
-
+	//loading predefined values
     componentDidMount() {
  		axios.get(`${this.url}/category/${this.props.match.params.id}`).then((resp) => {
 			if(resp.data.category){
@@ -48,7 +49,18 @@ class EditCategory extends Component {
 					 ...this.state,
 					 status:resp.status
 				 })
-			 }).catch(err =>{console.log(err)})
+				 swal(
+					'Category update',
+					'The category was update correctly',
+					'success'
+				)
+			 }).catch(err =>{
+				swal(
+					'Error',
+					'Clould not update',
+					'error'
+				)
+			 })
 	}
     render() {
 		if(this.state.status === 200){

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
 import Global from '../../../Global';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 
 export default class EditProduct extends Component {
@@ -14,11 +15,12 @@ export default class EditProduct extends Component {
     unitsRef = React.createRef();
 	aboutRef = React.createRef();
 	categoryRef = React.createRef();
-
+	//initial state
     state = {
         product : {},
         categories : []
-    }
+	}
+	//loading predefined values
     componentDidMount() {
         axios.get(`${this.url}/product/${this.props.match.params.id}`)
              .then(resp => {
@@ -40,7 +42,8 @@ export default class EditProduct extends Component {
 					categories: resp.data.categories
 				});
 		}).catch(err=>{console.log(err)});
-    }
+	}
+	//capturing new values
     changeState = () => {
         this.setState({
             ...this.state,
@@ -53,16 +56,27 @@ export default class EditProduct extends Component {
             }
 		}) 
 	}
+	//update product
 	updateProduct = (e) =>{
 		e.preventDefault();
 		axios.post(`${this.url}/product/edit`, this.state.product)
 			 .then(resp => {
-
 				this.setState({
 					...this.state,
 					status:resp.status
 				});
-			 }).catch(err => console.log(err))
+				swal(
+					'Product updated',
+					'The product was update correctly',
+					'success'
+				)
+			 }).catch(err => {
+				swal(
+					'Error',
+					'Could not update',
+					'error'
+				)
+			 })
 	}
     render() {
 		if(this.state.status === 200){
