@@ -50,7 +50,11 @@ export default class Store extends Component {
 	//Receiving from the son
 	receiveSon = (data) =>{
 		if(data === 'Not Found'){
-			console.log(data)
+			swal(
+				"don't worry",
+				'this item is no longer available',
+				'info'
+			)
 		}else{
 			let items=[];
 			let arrayItems = this.state.items;
@@ -77,44 +81,83 @@ export default class Store extends Component {
 	};
 	//delete items 
 	delete = (id) => () => {
-		let arrayItems = this.state.items;
-		let items = arrayItems.filter(item => item.product._id !== id);
-		this.setState({
-			...this.state,
-			items
-		})
+
+		swal({
+			title: "Are you sure?",
+			text: "Sure, we may not have inventory later?",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		  })
+		  .then((willDelete) => {
+			  
+			if (willDelete) {
+				let arrayItems = this.state.items;
+				let items = arrayItems.filter(item => item.product._id !== id);
+				this.setState({
+					...this.state,
+					items
+				})
+				
+			} else {
+				swal(
+					"don't worry",
+					'the item was not deleted',
+					'success'
+				)
+			}
+		  });
+
+
+
+
+
+
 		
 	}
 	//save sale
 	save = () => {
 		let arrayItems = this.state.items;
-		let product = {
-			items : []
-		}
- 		for (let index = 0; index < arrayItems.length; index++) {
-			product.items.push(arrayItems[index].product)
-			product.items[index].product = arrayItems[index].product._id
 
-			if(index === arrayItems.length -1){
-
-				axios.post(`${this.url}/sale/save`, product)
-					 .then(resp => {
-						this.getProducts();
-						swal(
-							'Product updated',
-							'The product was update correctly',
-							'success'
-						)
-					 })
-					 .catch(err => {
-						swal(
-							'Error',
-							'Could not update',
-							'error'
-						)
-					 })
+		if(arrayItems.length > 0){
+			let product = {
+				items : []
 			}
-		} 
+			 for (let index = 0; index < arrayItems.length; index++) {
+				product.items.push(arrayItems[index].product)
+				product.items[index].product = arrayItems[index].product._id
+	
+				if(index === arrayItems.length -1){
+	
+					axios.post(`${this.url}/sale/save`, product)
+						 .then(resp => {
+							this.getProducts();
+							this.setState({
+								items:[]
+							})
+
+							swal(
+								'Product updated',
+								'The product was update correctly',
+								'success'
+							)
+						 })
+						 .catch(err => {
+							swal(
+								'Error',
+								'Could not update',
+								'error'
+							)
+						 })
+				}
+			} 
+		}else{
+			swal(
+				'Be careful',
+				'you must select at least one item',
+				'info'
+			)
+		}
 		
 	}
 	//Search listener
@@ -202,7 +245,7 @@ export default class Store extends Component {
 															<p className="col-9 font-weight-bold mr-0">{item.product.name}</p>
 														</div>
 														<div className="col-2 d-flex text-center align-items-center justify-content-center">
-															<button  onClick={this.delete(item.product._id)} className="btn btn-danger col-2 m-auto">-</button>
+															<button  onClick={this.delete(item.product._id)} className="btn btn-danger  m-auto text-center"><i className="fa fas fa-trash"></i></button>
 														</div>
 														<hr/>
 														<div className="col-12">

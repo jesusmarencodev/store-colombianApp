@@ -34,6 +34,11 @@ const Header = () => {
 									Store
 								</NavLink>
 							</li>
+							<li className="nav-item text-center">
+								<NavLink to="/history" className="nav-link text-center">
+									History
+								</NavLink>
+							</li>
 						</ul>
 					</div>
 				</div>

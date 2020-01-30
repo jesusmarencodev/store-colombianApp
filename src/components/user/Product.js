@@ -19,9 +19,9 @@ export default class Product extends Component {
         let product = this.state.product;
 
         if(product.quantity >= product.units ){
-            this.unitRef.current.value = product.units
+            this.unitRef.current.value = product.units;
         }
-        product.quantity = parseInt(this.unitRef.current.value)
+        product.quantity = parseInt(this.unitRef.current.value);
         this.setState({
             product
         })
@@ -30,9 +30,9 @@ export default class Product extends Component {
 	//function that receives data from the child
     comunicationFather = () =>{
         if(this.unitRef.current.value > 0){
-            this.props.levelUp(this.state)
+            this.props.levelUp(this.state);
         }else{
-            this.props.levelUp('Not Found')
+			this.props.levelUp('Not Found');
         }
     }
 	render() {
@@ -62,8 +62,8 @@ export default class Product extends Component {
 
 					<div className="input-group mb-3">
 						<div className="input-group-prepend">
-							<button className="btn btn-outline-secondary" type="button" id="button-addon1">
-								see
+							<button className="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#modalProduct">
+							<i className="fa far fa-eye"></i>  Detail 
 							</button>
 						</div>
 						<input
@@ -82,8 +82,37 @@ export default class Product extends Component {
 								className="btn btn-outline-warning"
 								
 							>
-								+
+								<i className="fa fas fa-plus"></i>
 							</button>
+						</div>
+					</div>
+				</div>
+				{/* Modal */}
+				<div className="modal fade" id="modalProduct"  role="dialog" aria-hidden="true">
+					<div className="modal-dialog" role="document">
+						<div className="modal-content">
+							<div className="modal-header">
+								<h2>Detail</h2>
+								<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div className="modal-body">
+								<div className="text-center">
+										{product.img && (
+											<img  className="imgStore"  alt="imageSi" src={this.url + '/product/getimage/' + product.img} aly="er" />
+										)}
+										{!product.img && <img className="imgStore" alt="imageNo" src={prueba} aly="er" />}
+								</div>
+								<div>
+									<p className="font-weight-bold">Nombre: <span className="name">{product.name}</span></p>
+									<p className="font-weight-bold">About: <span className="name">{product.about}</span></p>
+									<p className="font-weight-bold">Category: <span className="name">{product.category.name}</span></p>
+									<p className="font-weight-bold">Price: <span className="name">${product.price}</span></p>
+									<p className="font-weight-bold">Units: <span className="name">{product.units}</span></p>
+
+								</div>	
+							</div>
 						</div>
 					</div>
 				</div>

@@ -13,7 +13,7 @@ const OneProduct = ({product}) => {
                     to={`/product/edit/${product._id}`}
                     className="btn btn-warning d-block d-md-inline-block"
                 >
-                    Edit
+                    <i className="fa far fa-edit"></i>
                 </Link>
             </div>
         </div>

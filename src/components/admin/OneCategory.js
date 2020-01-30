@@ -13,7 +13,7 @@ const OneCategory = ({category}) => {
                     to={`/category/${category._id}`}
                     className="btn btn-warning d-block d-md-inline-block"
                 >
-                    Edit
+                    <i className="fa far fa-edit"></i>
                 </Link>
             </div>
         </div>

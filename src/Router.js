@@ -9,6 +9,7 @@ import Category from './components/admin/Category';
 import Products from './components/admin/Products';
 import EditCategory from './components/admin/Edit/EditCategory';
 import EditProduct from './components/admin/Edit/EditProduct';
+import History from './components/History';
 
 class Router extends Component {
     render() {
@@ -23,6 +24,7 @@ class Router extends Component {
                     <Route  exact path="/category/:id" component={EditCategory}/>
                     <Route  exact path="/products" component={Products}/>
                     <Route  exact path="/product/edit/:id" component={EditProduct}/>
+                    <Route  exact path="/history" component={History}/>
                     <Route  component={Error}/>
                 </Switch>
             </BrowserRouter>

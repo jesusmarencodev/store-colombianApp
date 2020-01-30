@@ -84,7 +84,7 @@ class EditCategory extends Component {
 							</div>
 						</div>
 						<div className="text-center">
-							<input type="submit" className="btn btn-success" value="Edit Category"/>
+							<button type="submit" className="btn btn-success"><i className="fa far fa-save"> Update Category</i></button>
 						</div>
 					</form>
 				</div>

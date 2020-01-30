@@ -116,7 +116,7 @@ export default class EditProduct extends Component {
 							</div>
 						</div>
 						<div className="text-center">
-							<input type="submit" className="btn btn-success" value="Save Product"/>
+							<button type="submit" className="btn btn-success" value="Save Product"><i className="fa far fa-save"> Update Product</i></button>
 						</div>
 					</form>
 				</div>

@@ -81,7 +81,7 @@ class Category extends Component {
 							</div>
 						</div>
 						<div className="text-center">
-							<input type="submit" className="btn btn-success" value="Save Category"/>
+							<button type="submit" className="btn btn-success"><i className="fa far fa-save"> Save Category</i></button>
 						</div>
 					</form>
 				</div>
