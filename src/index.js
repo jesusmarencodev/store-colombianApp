@@ -8,7 +8,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './index.css';
 import App from './App';
 
-/* console.log($, Popper) */
+ console.log($, Popper);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
