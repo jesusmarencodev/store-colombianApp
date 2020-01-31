@@ -9,8 +9,6 @@ import makeAnimated from 'react-select/animated';
 const animatedComponents = makeAnimated();
 
 
-
-
 export default class Store extends Component {
 
 	url = Global.url;
@@ -108,12 +106,6 @@ export default class Store extends Component {
 				)
 			}
 		  });
-
-
-
-
-
-
 		
 	}
 	//save sale
