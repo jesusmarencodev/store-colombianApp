@@ -15,7 +15,6 @@ export default class History extends Component {
     componentDidMount(){
         axios.get(`${this.url}/sale/getAll`)
              .then(resp => {
-                 console.log(resp)
                  this.setState({
                      ...this.state,
                      sales: resp.data.sales

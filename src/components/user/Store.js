@@ -138,8 +138,8 @@ export default class Store extends Component {
 							})
 
 							swal(
-								'Product updated',
-								'The product was update correctly',
+								'Generated invoice',
+								'Your order will be sent',
 								'success'
 							)
 						 })

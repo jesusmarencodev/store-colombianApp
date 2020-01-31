@@ -6,13 +6,12 @@ export default class Sale extends Component {
     render() {
         let {sale} = this.props;
         let {items} =  sale;
-        console.log(items)
         return (
             <Fragment>
                 <li className="list-unstyled p-3 border-bottom text-center">
                     <p><strong>Invoice</strong>: FC-{sale.invoice}</p>
                     <p><strong>Total</strong>: ${sale.total}</p>
-                    <button className="btn btn-success" data-toggle="modal" data-target="#modaDetail"><i class="fa far fa-eye"></i> Detail</button>     
+                    <button className="btn btn-success" data-toggle="modal" data-target="#modaDetail"><i className="fa far fa-eye"></i> Detail</button>     
                 </li>
                 {/* Modal */}
                 <div className="modal fade" id="modaDetail"  role="dialog"  aria-hidden="true">

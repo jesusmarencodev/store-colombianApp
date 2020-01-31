@@ -1,3 +1,8 @@
+/*****Header******/
+.logo {
+  font-size: 1.5rem;
+  text-decoration: none !important; }
+
 /******Home******/
 .home {
   background: #007bff;
@@ -60,7 +65,12 @@
   overflow-wrap: break-word; }
 
 .imgStore {
-  height: 150px; }
+  height: 150px;
+  padding: 15px; }
+
+/*Order*/
+.over {
+  overflow: scroll !important; }
 
 /*Media Querys*/
 @media (max-width: 664px) {

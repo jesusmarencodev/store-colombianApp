@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import noimage from '../../assets/images/no-image.png';
 import Global from '../../Global';
+import swal from 'sweetalert';
 import '../../App';
 
 export default class Product extends Component {
@@ -30,7 +31,22 @@ export default class Product extends Component {
 	//function that receives data from the child
     comunicationFather = () =>{
         if(this.unitRef.current.value > 0){
-            this.props.levelUp(this.state);
+			let product = this.state.product;
+			if(product.quantity > product.units ){
+				this.unitRef.current.value = product.units;
+				product.quantity = parseInt(this.unitRef.current.value);
+				swal(
+					"don't worry",
+					'there is no such amount in inventory',
+					'info'
+				)
+				this.setState({
+					product
+				})
+			}else{
+				this.props.levelUp(this.state);
+			}
+            
         }else{
 			this.props.levelUp('Not Found');
         }
@@ -97,8 +113,8 @@ export default class Product extends Component {
 								<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div className="modal-body">
-								<div className="text-center">
+							<div className="modal-body" >
+								<div className="text-center overImage">
 										{product.img && (
 											<img  className="imgStore"  alt="imageSi" src={this.url + '/product/getimage/' + product.img} aly="er" />
 										)}
