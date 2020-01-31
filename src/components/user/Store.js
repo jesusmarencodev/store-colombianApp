@@ -49,6 +49,7 @@ export default class Store extends Component {
 	}
 	//Receiving from the son
 	receiveSon = (data) =>{
+		console.log(data)
 		if(data === 'Not Found'){
 			swal(
 				"don't worry",

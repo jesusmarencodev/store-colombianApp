@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
+import noimage from '../../../assets/images/no-image.png'
 import Global from '../../../Global';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -18,7 +19,8 @@ export default class EditProduct extends Component {
 	//initial state
     state = {
         product : {},
-        categories : []
+		categories : [],
+		selectedFile:null
 	}
 	//loading predefined values
     componentDidMount() {
@@ -65,6 +67,25 @@ export default class EditProduct extends Component {
 					...this.state,
 					status:resp.status
 				});
+
+				//upload image
+				if(this.state.selectedFile !== null){
+					let product_id = resp.data.productUpdate._id;
+					//created form data
+					const formData = new FormData();
+					formData.append(
+						'fileUpload',//name received in api
+						this.state.selectedFile,//the file
+						this.state.selectedFile.name//file name
+					)
+					axios.post(`${this.url}/product/upload/${product_id}`, formData)
+							.then(res =>{
+								console.log('image ok');
+							})
+							.catch(err =>{
+								console.log(err);
+							})
+				}
 				swal(
 					'Product updated',
 					'The product was update correctly',
@@ -77,6 +98,12 @@ export default class EditProduct extends Component {
 					'error'
 				)
 			 })
+	}
+	//Selected file
+	fileChange=(event)=>{
+		this.setState({
+			selectedFile:event.target.files[0]
+		})
 	}
     render() {
 		if(this.state.status === 200){
@@ -113,6 +140,21 @@ export default class EditProduct extends Component {
                             <div className="form-group col-md-12">
 								<label htmlFor="about">About</label>
 								<textarea type="text" className="form-control" onChange={this.changeState} name="about" ref={this.aboutRef} placeholder="About" />
+							</div>
+							<div className="form-group col-md-12">		
+								{this.state.product.img && (
+									<img  className="imgStore"  alt="imageSi" src={this.url + '/product/getimage/' + this.state.product.img} aly="er" />
+								)}
+								{!this.state.product && <img className="imgStore" alt="imageNo" src={noimage} aly="er" />}
+							</div>
+							<div className="input-group mb-3">
+								<div className="input-group-prepend">
+									<span className="input-group-text" id="inputGroupFileAddon01">Upload</span>
+								</div>
+								<div className="custom-file">
+									<input type="file" name="fileUpload" onChange={this.fileChange} className="custom-file-input"/>
+									<label className="custom-file-label" >Choose file</label>
+								</div>
 							</div>
 						</div>
 						<div className="text-center">

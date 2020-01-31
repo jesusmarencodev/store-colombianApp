@@ -22,7 +22,8 @@ class Products extends Component {
     state = {
         products : [],
         product : {},
-        categories : []
+		categories : [],
+		selectedFile:null
 	}
 	//loading product list
     componentDidMount() {
@@ -78,6 +79,24 @@ class Products extends Component {
 					this.setState({
 						product: {}
 					})
+					//upload image
+					if(this.state.selectedFile !== null){
+						let product_id = resp.data.productCreated._id;
+						//created form data
+						const formData = new FormData();
+						formData.append(
+							'fileUpload',//name received in api
+							this.state.selectedFile,//the file
+							this.state.selectedFile.name//file name
+						)
+						axios.post(`${this.url}/product/upload/${product_id}`, formData)
+							 .then(res =>{
+								 console.log('image ok');
+							 })
+							 .catch(err =>{
+								 console.log(err);
+							 })
+					}
 					swal(
 						'Product created',
 						'The product was created correctly',
@@ -87,10 +106,11 @@ class Products extends Component {
 				 }
 			 })
 			 .catch(err => {
+				 console.log(err)
 				swal(
-					'Error',
-					'Code already exists',
-					'error'
+					"Error",
+					"Code already exists or I don't select category",
+					"error"
 				)
 			 })
 	}
@@ -105,6 +125,12 @@ class Products extends Component {
 
 			 });
 	}
+	//Selected file
+	fileChange=(event)=>{
+        this.setState({
+            selectedFile:event.target.files[0]
+		})
+    }
 	render() {
 		let { products } = this.state;
 		return (
@@ -123,7 +149,9 @@ class Products extends Component {
 									placeholder={'Select Category'}
 									getOptionValue={(options)=> options._id}
 									getOptionLabel={(options)=> options.name}
+									isSearchable
 									required
+									
 								/>
 							</div>
 							<div className="form-group col-md-6">
@@ -145,6 +173,15 @@ class Products extends Component {
                             <div className="form-group col-md-12">
 								<label htmlFor="about">About</label>
 								<textarea type="text" className="form-control" onChange={this.changeState} name="about" ref={this.aboutRef} placeholder="About" required />
+							</div>
+							<div className="input-group mb-3">
+								<div className="input-group-prepend">
+									<span className="input-group-text" id="inputGroupFileAddon01">Upload</span>
+								</div>
+								<div className="custom-file">
+									<input type="file" name="fileUpload" onChange={this.fileChange} className="custom-file-input"/>
+									<label className="custom-file-label" >Choose file</label>
+								</div>
 							</div>
 						</div>
 						<div className="text-center">

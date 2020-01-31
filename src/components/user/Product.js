@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import prueba from '../../assets/images/no-image.png';
+import noimage from '../../assets/images/no-image.png';
 import Global from '../../Global';
 import '../../App';
 
@@ -18,7 +18,7 @@ export default class Product extends Component {
     changeState = () =>{
         let product = this.state.product;
 
-        if(product.quantity >= product.units ){
+        if(product.quantity > product.units ){
             this.unitRef.current.value = product.units;
         }
         product.quantity = parseInt(this.unitRef.current.value);
@@ -44,7 +44,7 @@ export default class Product extends Component {
 					{product.img && (
 						<img  className="imgStore"  alt="imageSi" src={this.url + '/product/getimage/' + product.img} aly="er" />
 					)}
-					{!product.img && <img className="imgStore" alt="imageNo" src={prueba} aly="er" />}
+					{!product.img && <img className="imgStore" alt="imageNo" src={noimage} aly="er" />}
 				</div>
 				<div className="col-12 col-md-9 about text-center">
 					<div className="d-md-flex justify-content-between about">
@@ -70,7 +70,7 @@ export default class Product extends Component {
                         onChange={this.changeState}
                             ref={this.unitRef}
 							type="number"
-                            min="0"
+							min="0"
                             defaultValue="0"
 							className="form-control"
 							placeholder="quantity"
@@ -102,7 +102,7 @@ export default class Product extends Component {
 										{product.img && (
 											<img  className="imgStore"  alt="imageSi" src={this.url + '/product/getimage/' + product.img} aly="er" />
 										)}
-										{!product.img && <img className="imgStore" alt="imageNo" src={prueba} aly="er" />}
+										{!product.img && <img className="imgStore" alt="imageNo" src={noimage} aly="er" />}
 								</div>
 								<div>
 									<p className="font-weight-bold">Nombre: <span className="name">{product.name}</span></p>
