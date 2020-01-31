@@ -55,6 +55,7 @@ export default class EditProduct extends Component {
                 price: this.priceRef.current.value,
                 units: this.unitsRef.current.value,
 				about: this.aboutRef.current.value,
+				img : this.state.product.img
             }
 		}) 
 	}
@@ -143,9 +144,9 @@ export default class EditProduct extends Component {
 							</div>
 							<div className="form-group col-md-12">		
 								{this.state.product.img && (
-									<img  className="imgStore"  alt="imageSi" src={this.url + '/product/getimage/' + this.state.product.img} aly="er" />
+									<img   alt="imageSi" src={this.url + '/product/getimage/' + this.state.product.img} aly="er" />
 								)}
-								{!this.state.product && <img className="imgStore" alt="imageNo" src={noimage} aly="er" />}
+								{!this.state.product.img && <img alt="imageNo" src={noimage} aly="er" />}
 							</div>
 							<div className="input-group mb-3">
 								<div className="input-group-prepend">
